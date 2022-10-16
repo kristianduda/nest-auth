@@ -1,13 +1,15 @@
-import { Controller, Get, Request } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { Auth } from '../auth/decorators/auth.decorator';
-import { Permission } from 'src/auth/enums/permission.enum';
+import { CurrentUser } from '../auth/decorators/currentUser.decorator';
+import { UsersService } from './users.service';
 
 @Controller('users')
-export class UsersController {  
-    
-  @Auth(Permission.Profile)
+export class UsersController {
+  constructor(private readonly usersService: UsersService) {}
+
+  @Auth()
   @Get('profile')
-  isAdmin(@Request() req) {
-    return req.user;
+  async findCurrent(@CurrentUser() currentUser) {
+    return await this.usersService.findOneById(currentUser)
   }
 }

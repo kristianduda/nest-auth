@@ -1,8 +1,6 @@
-import { UseGuards } from '@nestjs/common';
-import { applyDecorators } from '@nestjs/common';
-import { SetMetadata } from '@nestjs/common';
-import { JwtAuthGuard } from '../guards/jwt-auth.guard';
+import { applyDecorators, SetMetadata, UseGuards } from '@nestjs/common';
 import { Permission } from '../enums/permission.enum';
+import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { PermissionsGuard } from '../guards/permissions.guard';
 
 export function Auth(...permissions: Permission[]) {

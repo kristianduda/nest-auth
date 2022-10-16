@@ -1,4 +1,4 @@
 export enum Permission {
-  Profile = 1,
-  File = 3
+  Users = 1,
+  Organizations = 2,
 }
