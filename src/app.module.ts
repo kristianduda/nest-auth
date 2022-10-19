@@ -9,7 +9,6 @@ import { UsersModule } from './users/users.module'
     AuthModule,
     UsersModule,
     ConfigModule.forRoot({
-      envFilePath: ['.env.local', '.env'],
       isGlobal: true,
     }),
   ],
