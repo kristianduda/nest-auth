@@ -16,7 +16,7 @@ export class AuthService {
   ) {}
 
   async validateUser(email: string, pass: string): Promise<User> {
-    const user = await this.usersService.userByEmail(email)
+    const user = await this.usersService.findByEmail(email)
 
     if (user && (await bcrypt.compare(pass, user.password))) {
       return { ...user, password: undefined }
@@ -25,7 +25,7 @@ export class AuthService {
   }
 
   async refresh(id: number) {
-    const user = await this.usersService.user(id)
+    const user = await this.usersService.findById(id)
     return await this.login(user)
   }
 

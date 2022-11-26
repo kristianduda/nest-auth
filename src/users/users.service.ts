@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { Prisma } from '@prisma/client'
+import * as bcrypt from 'bcrypt'
 import { BaseList } from '../prisma/interfaces/baseList.interface'
 import { PrismaService } from '../prisma/prisma.service'
 import { User } from './interfaces/user.interface'
@@ -8,7 +9,7 @@ import { User } from './interfaces/user.interface'
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  async userByEmail(email: string): Promise<User | undefined> {
+  async findByEmail(email: string): Promise<User | undefined> {
     const user = await this.prisma.admin_users.findFirst({
       where: {
         email,
@@ -21,7 +22,7 @@ export class UsersService {
     return user
   }
 
-  async user(id: number): Promise<User | null> {
+  async findById(id: number): Promise<User | null> {
     const user = await this.prisma.admin_users.findUnique({
       where: {
         id,
@@ -38,7 +39,7 @@ export class UsersService {
     return user
   }
 
-  async users(params: {
+  async get(params: {
     skip?: number
     take?: number
     where?: Prisma.admin_usersWhereInput
@@ -57,20 +58,22 @@ export class UsersService {
     return { total, data}
   }
 
-  async createUser(data: Prisma.admin_usersCreateInput): Promise<User> {
+  async create(data: Prisma.admin_usersCreateInput): Promise<User> {
+    data.password = await bcrypt.hash(data.password, 10)
+
     return this.prisma.admin_users.create({
       data,
     })
   }
 
-  async updateUser(id: number, data: Prisma.admin_usersCreateInput): Promise<User> {
+  async update(id: number, data: Prisma.admin_usersCreateInput): Promise<User> {
     return this.prisma.admin_users.update({
       data,
       where: { id },
     })
   }
 
-  async deleteUser(id: number): Promise<User> {
+  async delete(id: number): Promise<User> {
     return this.prisma.admin_users.delete({
       where: {
         id,
