@@ -32,15 +32,3 @@ export class FindDto {
   @Transform(({ value }) => JSON.parse(value))
   orderBy?: SortOrder
 }
-
-
-
-// export class UserListDto implements BaseList<User> {
-//   total: number
-
-//   @ApiProperty({
-//     type: UserDto,
-//     isArray: true,
-//   })
-//   data: User[]
-// }
