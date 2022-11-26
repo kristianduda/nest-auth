@@ -22,7 +22,7 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-App is running on port 3000 (default).
+App is running on port 8000 (default).
 
 ## Documentation
 See `/api` for OpenAPI docs.
