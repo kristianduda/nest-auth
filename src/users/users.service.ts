@@ -47,8 +47,6 @@ export class UsersService {
     const { skip, take, where, orderBy } = params
 
     const total = await this.prisma.admin_users.count({ where })
-    console.log(total)
-
     const data = await this.prisma.admin_users.findMany({
       skip,
       take,
