@@ -1,5 +1,6 @@
 export interface Token {
   id: number
-  access_token: string
   roles: number[]
+  access_token: string
+  refresh_token: string
 }
