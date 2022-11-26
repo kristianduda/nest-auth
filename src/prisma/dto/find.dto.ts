@@ -1,9 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { Prisma } from '@prisma/client'
 import { Transform } from 'class-transformer'
 import { IsNumber, IsOptional, Min } from 'class-validator'
 
-type SortOrder = { [key: string]: Prisma.SortOrder }
+type SortOrder = { [key: string]: 'asc' | 'desc' }
 export class FindDto {
   @Transform(({ value }) => parseInt(value))
   @IsNumber()
@@ -33,3 +32,15 @@ export class FindDto {
   @Transform(({ value }) => JSON.parse(value))
   orderBy?: SortOrder
 }
+
+
+
+// export class UserListDto implements BaseList<User> {
+//   total: number
+
+//   @ApiProperty({
+//     type: UserDto,
+//     isArray: true,
+//   })
+//   data: User[]
+// }

@@ -3,13 +3,13 @@ import { Prisma } from '@prisma/client'
 import * as bcrypt from 'bcrypt'
 import { BaseList } from '../prisma/interfaces/baseList.interface'
 import { PrismaService } from '../prisma/prisma.service'
-import { User } from './interfaces/user.interface'
+import { User, UserDetail } from './interfaces/user.interface'
 
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  async findByEmail(email: string): Promise<User | undefined> {
+  async findByEmail(email: string): Promise<UserDetail | undefined> {
     const user = await this.prisma.admin_users.findFirst({
       where: {
         email,
@@ -22,7 +22,7 @@ export class UsersService {
     return user
   }
 
-  async findById(id: number): Promise<User | null> {
+  async findById(id: number): Promise<UserDetail | null> {
     const user = await this.prisma.admin_users.findUnique({
       where: {
         id,
