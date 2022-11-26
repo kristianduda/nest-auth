@@ -14,7 +14,7 @@ export class AuthService {
   ) {}
 
   async validateUser(email: string, pass: string): Promise<User> {
-    const user = await this.usersService.findOneByEmail(email);
+    const user = await this.usersService.userByEmail(email);
 
     if (user && await bcrypt.compare(pass, user.password)) {
       return { ...user, password: undefined };
@@ -23,10 +23,13 @@ export class AuthService {
   }
 
   async login(user: User) : Promise<Token> {
-    const payload : Payload = { id: user.id, permissions: user.permissions };
+    const roles = user.admin_users_roles_links.map(r => r.role_id)
+
+    const payload : Payload = { id: user.id, roles };
     return {
       id: user.id,
-      access_token: this.jwtService.sign(payload)
+      access_token: this.jwtService.sign(payload),
+      roles
     };
   }
 }

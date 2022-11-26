@@ -1,4 +1,5 @@
 export interface Token {
-  id: number,
+  id: number
   access_token: string
+  roles: number[]
 }

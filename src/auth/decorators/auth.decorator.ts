@@ -1,13 +1,11 @@
 import { applyDecorators, SetMetadata, UseGuards } from '@nestjs/common';
-import { Permission } from '../enums/permission.enum';
+import { Role } from '../enums/role.enum';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
-import { PermissionsGuard } from '../guards/permissions.guard';
+import { RolesGuard } from '../guards/roles.guard';
 
-export function Auth(...permissions: Permission[]) {
+export function Auth(...roles: Role[]) {
   return applyDecorators(
-    SetMetadata('permissions', permissions),
-    UseGuards(JwtAuthGuard, PermissionsGuard),
-    // ApiBearerAuth(),
-    // ApiUnauthorizedResponse({ description: 'Unauthorized' }),
+    SetMetadata('roles', roles),
+    UseGuards(JwtAuthGuard, RolesGuard),
   );
 }
