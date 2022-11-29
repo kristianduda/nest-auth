@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { Transform } from 'class-transformer'
-import { IsNumber, IsOptional, Min } from 'class-validator'
+import { IsNumber, IsObject, IsOptional, Min } from 'class-validator'
 
 type SortOrder = { [key: string]: 'asc' | 'desc' }
 export class FindDto {
@@ -20,6 +20,7 @@ export class FindDto {
     description: 'Prisma where object',
     type: {},
   })
+  @IsObject()
   @IsOptional()
   @Transform(({ value }) => JSON.parse(value))
   where?: object
@@ -28,6 +29,7 @@ export class FindDto {
     description: 'Prisma orderBy object',
     type: {},
   })
+  @IsObject()
   @IsOptional()
   @Transform(({ value }) => JSON.parse(value))
   orderBy?: SortOrder
