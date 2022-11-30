@@ -5,7 +5,7 @@ import * as bcrypt from 'bcrypt'
 import { UserDetail } from '../users/interfaces/user.interface'
 import { UsersService } from '../users/users.service'
 import { Payload } from './interfaces/payload.interface'
-import { Token } from './interfaces/token.interface'
+import { Session } from './interfaces/session.interface'
 
 @Injectable()
 export class AuthService {
@@ -29,7 +29,7 @@ export class AuthService {
     return await this.login(user)
   }
 
-  async login(user: UserDetail): Promise<Token> {
+  async login(user: UserDetail): Promise<Session> {
     const roles = user.admin_users_roles_links.map((r) => r.role_id)
 
     const payload: Payload = { id: user.id, roles }

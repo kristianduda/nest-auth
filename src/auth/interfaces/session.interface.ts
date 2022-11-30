@@ -1,4 +1,4 @@
-export interface Token {
+export interface Session {
   id: number
   roles: number[]
   access_token: string
